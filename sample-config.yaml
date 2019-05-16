@@ -1,0 +1,9 @@
+
+max-usage:  80%
+
+devices:
+
+  - /dev/sda1
+  - /dev/mapper/some-mapped-device
+
+
