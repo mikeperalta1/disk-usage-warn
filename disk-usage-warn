@@ -30,14 +30,24 @@ class DiskUsageWarn:
 		
 		self.consume_arguments()
 	
-	@staticmethod
-	def log(s, o=None):
+	def log(self, s, o=None):
 		
 		message = "[Disk-Usage-Warn] " + s
 		if o:
 			message += " " + str(o)
 		
 		print(message)
+		self.execute_command(["logger", message])
+	
+	def stderr(self, s, o=None):
+		
+		message = "[Disk-Usage-Warn] " + s
+		if o:
+			message += " " + str(o)
+		
+		print(message, file=sys.stderr)
+		self.execute_command(["logger", message])
+		
 	
 	def consume_arguments(self):
 		
@@ -125,7 +135,11 @@ class DiskUsageWarn:
 			device_usage = self.get_device_usage(device)
 			self.log("Device Usage: " + device + " ==> " + str(device_usage) + "%")
 			if device_usage > max_percent:
-				self.log("Device is too full: " + str(device))
+				error_message =	("Device " + str(device) + " is too full"
+					+ "; Using " + str(device_usage) + "%"
+					+ ", but maximum is " + str(max_percent) + "%"
+				)
+				self.stderr(error_message)
 	
 	def get_device_usage(self, device):
 		
