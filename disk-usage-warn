@@ -119,7 +119,7 @@ class DiskUsageWarn:
 			raise Exception("Unable to open config file: " + path)
 		
 		# Parse
-		config = yaml.load(f)
+		config = yaml.safe_load(f)
 		
 		# Add the config file's own path
 		config["path"] = path
