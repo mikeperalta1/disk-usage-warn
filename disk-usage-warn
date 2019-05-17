@@ -141,15 +141,15 @@ class DiskUsageWarn:
 	def do_config(self, config):
 		
 		# Pull the max usage
-		if "max-usage" not in config.keys():
-			raise Exception("Did not find config key: max-usage")
-		max_percent = config["max-usage"]
+		self.assert_config_key(config, "max-usage", [int, str, list])
+		max_percent = str(config["max-usage"])
 		match = re.match("(?P<integer_percent>[0-9]+)%?", max_percent)
 		if not match:
 			raise Exception("Unable to parse configuration value for max-usage (integer percent)")
 		max_percent = int(match.group("integer_percent"))
 		
 		# Check each device
+		self.assert_config_key(config, "devices", list)
 		for device in config["devices"]:
 			
 			device_usage = self.get_device_usage(device)
@@ -160,6 +160,23 @@ class DiskUsageWarn:
 					+ ", but maximum is " + str(max_percent) + "%"
 				)
 				self.stderr(error_message)
+	
+	@staticmethod
+	def assert_config_key(config, key, types):
+		
+		if not isinstance(types, list):
+			types = [types]
+		if len(types) == 0:
+			types = [list]
+		
+		if key not in config.keys():
+			raise Exception("Missing required config key: " + str(key))
+		
+		for t in types:
+			if isinstance(config[key], t):
+				return True
+		
+		raise Exception("Config key \"" + key + "\" should be one of these types \"" + str(types) + "\"")
 	
 	def get_device_usage(self, device):
 		
