@@ -11,7 +11,7 @@ This is a simple script that will emit a warning to stderr when your disk usage 
   
   Example:
   
-  ``` sudo pip3 install pyaml```
+  ```sudo pip3 install pyaml```
 
 * *logger* program, which should be on most distributions
 
@@ -47,13 +47,13 @@ python3 /path/to/disk-usage-warn --config "/my/config/path-1" --config "/my/conf
 
 As mentioned, the easiest way to use this script is with Crontabs. By default, cron jobs will send you an email any time a script outputs to stdout or stderr. Since this script will output lots of information onto stdout, and only output to stderr when a disk has become full, it's useful to redirect stdout to /dev/null, like so:
 
-```
+```bash
 python3 /path/to/disk-usage-warn --config "/path-to-config" > /dev/null
 ```
 
 So, in order to run this script every 5 minutes, use something like the following:
 
-```
+```bash
 */5 * * * * python3 /path/to/disk-usage-warn --config "/path-to-config" > /dev/null
 ```
 
