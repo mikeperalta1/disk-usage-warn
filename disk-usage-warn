@@ -128,8 +128,6 @@ class DiskUsageWarn:
 	
 	def run(self):
 		
-		self.log("Begin")
-		
 		self.consume_configs()
 		self.do_configs()
 	
