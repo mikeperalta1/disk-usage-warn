@@ -14,6 +14,7 @@ Released under the GNU GENERAL PUBLIC LICENSE v3 (See LICENSE file for more)
 
 
 #
+import os
 import re
 import subprocess
 import sys
@@ -78,8 +79,27 @@ class DiskUsageWarn:
 		self.__configs = []
 		
 		#
-		for config_path in self.__config_paths:
-			self.consume_config(config_path)
+		for path in self.__config_paths:
+			
+			if os.path.isdir(path):
+				
+				self.log(path + " is actually a directory; Iterating over contained files (non-recursive)")
+				for file_name in os.listdir(path):
+					
+					one_config_path = os.path.join(path, file_name)
+					if re.match(".+\.yaml$", file_name):
+						self.log("Found yaml: " + file_name)
+						self.consume_config(one_config_path)
+					else:
+						self.log("Ignoring non-yaml file: " + file_name)
+			
+			elif os.path.isfile(path):
+				
+				self.consume_config(path)
+				
+			else:
+				
+				raise Exception("Don't know what to do with config path:" + str(path))
 		
 		self.log("Consumed " + str(len(self.__configs)) + " configs")
 		
