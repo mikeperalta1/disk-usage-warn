@@ -18,7 +18,7 @@ Makes it easy to get emails fron crontab when your disk gets too full
 
 2. cd to this repo's directory and run `$ pyenv install` to get the correct version of python
 
-3. Install pyenv with `$ pip install --upgrade pip pipenv`
+3. Install pipenv with `$ pip install --upgrade pip pipenv`
 
 4. Initialize the pip environment with `$ pipenv install`
 
