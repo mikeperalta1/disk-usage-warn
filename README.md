@@ -1,7 +1,8 @@
 
 # Mike's Disk Usage Warn Thing
 
-This is a simple script that will emit a warning to stderr when your disk usage surpasses a configured threshold. StdErr output was chosen for its simplicity, and because it's very easy to configure a cron job to send you an email any time an error occurs.
+This is a simple script that will emit a warning to stderr when your disk usage surpasses a configured threshold.
+Makes it easy to get emails fron crontab when your disk gets too full
 
 ## Requirements
 
