@@ -87,7 +87,7 @@ class DiskUsageWarn:
 				for file_name in os.listdir(path):
 					
 					one_config_path = os.path.join(path, file_name)
-					if re.match(".+\.yaml$", file_name):
+					if re.match(r".+\.yaml$", file_name):
 						self.log("Found yaml: " + file_name)
 						self.consume_config(one_config_path)
 					else:
