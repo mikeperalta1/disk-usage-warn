@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 
 """
 
@@ -6,7 +5,7 @@ Mike's Disk Usage Warner
 
 A simple script to emit warnings out to stderr if a disk's usage surpasses a threshold
 
-Copyright 2019 Mike Peralta; All rights reserved
+Copyright 2019-2024 Mike Peralta; All rights reserved but for following license(s)
 
 Released under the GNU GENERAL PUBLIC LICENSE v3 (See LICENSE file for more)
 
@@ -209,14 +208,3 @@ class DiskUsageWarn:
 			stderr = stderr.decode()
 		
 		return process.returncode, stdout, stderr
-
-
-def main():
-	
-	duw = DiskUsageWarn()
-	duw.run()
-
-if __name__ == "__main__":
-	main()
-
-

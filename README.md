@@ -5,27 +5,25 @@ This is a simple script that will emit a warning to stderr when your disk usage 
 
 ## Requirements
 
-* Python3
+* pyenv
 
-* Python *pyaml* module
-  
-  Example:
-  
-  ```sudo pip3 install pyaml```
+  * pipenv inside
 
 * *logger* program, which should be on most distributions
 
 ## Installation
 
-1. First, make sure you have python3 and pip3 installed
+1. Install [pyenv](https://github.com/pyenv/pyenv)
 
-2. Use pip3 to make sure you have the python module "pyaml" installed
+2. cd to this repo's directory and run `$ pyenv install` to get the correct version of python
 
-3. Create a configuration file somewhere. 
+3. Install pyenv with `$ pip install --upgrade pip pipenv`
 
-4. Create a Crontab entry that will call this script with an argument "--config" followed by the path to your configuration file.
+4. Initialize the pip environment with `$ pipenv install`
 
-(examples found below)
+5. Create a yaml configuration file somewhere.
+
+6. Create a crontab entry that will call this script with an argument "--config" followed by the path to your configuration file.
 
 ## Command Line Arguments
 
@@ -37,27 +35,26 @@ Specifies a path to a configuration file or directory. If a directory is specifi
 
 ### Example Call With Arguments
 
-Assuming you can invoke *Python 3* with the command ```python3```, here's a quick example using two configuration files:
-
-```
-python3 /path/to/disk-usage-warn --config "/my/config/path-1" --config "/my/config/path-2"
+```shell
+cd /path/to/this/repo && pipenv run python main.py --config "/my/config/path-1" --config "/my/config/path-2"
 ```
 
 ## Example Crontab Entry
 
-As mentioned, the easiest way to use this script is with Crontabs. By default, cron jobs will send you an email any time a script outputs to stdout or stderr. Since this script will output lots of information onto stdout, and only output to stderr when a disk has become full, it's useful to redirect stdout to /dev/null, like so:
+As mentioned, the easiest way to use this script is with crontabs.
+By default, cron jobs will send you an email any time a script outputs to stdout or stderr.
+Since this script will output lots of information to stdout,
+ and only output to stderr when a disk has become full,
+ it's useful to redirect stdout to /dev/null, like so:
 
-```bash
-python3 /path/to/disk-usage-warn --config "/path-to-config" > /dev/null
+```shell
+cd /path/to/this/repo && pipenv run python main.py --config "/path/to/config" > /dev/null
 ```
 
 So, in order to run this script every 5 minutes, use something like the following:
 
-```bash
-*/5 * * * * python3 /path/to/disk-usage-warn --config "/path-to-config" > /dev/null
+```shell
+*/5 * * * * cd /path/to/this/repo && pipenv run python main.py --config "/path/to/config" > /dev/null
 ```
-
-The examples above assume you can invoke *Python 3* with the command ```python3```.
-
 
 
